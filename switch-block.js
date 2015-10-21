@@ -5,25 +5,6 @@ $(document).ready(function() {
 
   drawOnCanvas(board);
 
-  function drawOnCanvas(board) {
-    var canvas = document.getElementById('board');
-    var context = canvas.getContext('2d');
-
-    canvas.width = board.width;
-    canvas.height = board.height;
-
-    board.columns.forEach(function(column) {
-      column.tiles.forEach(function(tile) {
-        var x = tile.xCoord;
-        var y = tile.yCoord;
-        var width = board.tileWidth;
-        var height = board.tileHeight;
-
-        context.strokeRect(x, y, width, height);
-      });
-    });
-  };
-
   // TODO: *** Remove console.log ***
   console.log(board);
 
@@ -79,4 +60,23 @@ function generateBoard() {
   };
 
   return board;
+};
+
+function drawOnCanvas(board) {
+  var canvas = document.getElementById('board');
+  var context = canvas.getContext('2d');
+
+  canvas.width = board.width;
+  canvas.height = board.height;
+
+  board.columns.forEach(function(column) {
+    column.tiles.forEach(function(tile) {
+      var x = tile.xCoord;
+      var y = tile.yCoord;
+      var width = board.tileWidth;
+      var height = board.tileHeight;
+
+      context.strokeRect(x, y, width, height);
+    });
+  });
 };
