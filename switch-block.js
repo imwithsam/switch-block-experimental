@@ -79,4 +79,6 @@ function drawOnCanvas(board) {
       context.strokeRect(x, y, width, height);
     });
   });
+
+  return context;
 };
