@@ -21,7 +21,7 @@ function generateBoard() {
 
   // Add columns with tiles to board
   for (var i=0; i < board.columnCount; i++) {
-    var column = new Column(i);
+    var column = new Column();
 
     for (var j=0; j < board.rowCount; j++) {
       // Generate random tile type (1-7)
@@ -29,7 +29,7 @@ function generateBoard() {
       var type = Math.floor((Math.random() * 7) + 1);
       var xCoord = i * board.tileWidth;
       var yCoord = j * board.tileHeight;
-      var tile = new Tile(j, type, xCoord, yCoord)
+      var tile = new Tile(type, xCoord, yCoord)
 
       column.tiles.push(tile);
     }
@@ -47,13 +47,11 @@ function generateBoard() {
     this.columns = [];
   };
 
-  function Column(columnNumber) {
-    this.columnNumber = columnNumber;
+  function Column() {
     this.tiles = [];
   };
 
-  function Tile(rowNumber, type, xCoord, yCoord) {
-    this.rowNumber = rowNumber;
+  function Tile(type, xCoord, yCoord) {
     this.type = type || 0;
     this.xCoord = xCoord;
     this.yCoord = yCoord;
