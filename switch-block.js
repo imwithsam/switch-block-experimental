@@ -43,10 +43,12 @@ function generateBoard() {
     var column = new Column(i);
 
     for (var j=0; j < board.rowCount; j++) {
-      var value = Math.floor((Math.random() * 7) + 1);
+      // Generate random tile type (1-7)
+      // Zero is reserved for an empty tile
+      var type = Math.floor((Math.random() * 7) + 1);
       var xCoord = i * board.tileWidth;
       var yCoord = j * board.tileHeight;
-      var tile = new Tile(j, value, xCoord, yCoord)
+      var tile = new Tile(j, type, xCoord, yCoord)
 
       column.tiles.push(tile);
     }
@@ -69,9 +71,9 @@ function generateBoard() {
     this.tiles = [];
   };
 
-  function Tile(rowNumber, value, xCoord, yCoord) {
+  function Tile(rowNumber, type, xCoord, yCoord) {
     this.rowNumber = rowNumber;
-    this.value = value || 0;
+    this.type = type || 0;
     this.xCoord = xCoord;
     this.yCoord = yCoord;
   };
