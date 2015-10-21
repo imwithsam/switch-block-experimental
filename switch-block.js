@@ -20,21 +20,15 @@ function generateBoard() {
   var board = new Board(8, 8, 70, 70);
 
   // Add columns with tiles to board
-  for (var i=0; i < board.columnCount; i++) {
-    var column = new Column();
-
-    for (var j=0; j < board.rowCount; j++) {
+  for (var column=0; column < board.columnCount; column++) {
+    for (var row=0; row < board.rowCount; row++) {
       // Generate random tile type (1-7)
       // Zero is reserved for an empty tile
       var type = Math.floor((Math.random() * 7) + 1);
-      var xCoord = i * board.tileWidth;
-      var yCoord = j * board.tileHeight;
-      var tile = new Tile(type, xCoord, yCoord)
+      var tile = new Tile(type, column, row)
 
-      column.tiles.push(tile);
+      board.tiles.push(tile);
     }
-
-    board.columns.push(column);
   }
 
   function Board(columnCount, rowCount, tileWidth, tileHeight) {
@@ -44,17 +38,13 @@ function generateBoard() {
     this.tileHeight = tileHeight || 70;
     this.width = this.tileWidth * this.columnCount;
     this.height = this.tileHeight * this.rowCount;
-    this.columns = [];
-  };
-
-  function Column() {
     this.tiles = [];
   };
 
-  function Tile(type, xCoord, yCoord) {
+  function Tile(type, column, row) {
     this.type = type || 0;
-    this.xCoord = xCoord;
-    this.yCoord = yCoord;
+    this.column = column;
+    this.row = row;
   };
 
   return board;
@@ -67,15 +57,13 @@ function drawOnCanvas(board) {
   canvas.width = board.width;
   canvas.height = board.height;
 
-  board.columns.forEach(function(column) {
-    column.tiles.forEach(function(tile) {
-      var x = tile.xCoord;
-      var y = tile.yCoord;
-      var width = board.tileWidth;
-      var height = board.tileHeight;
+  board.tiles.forEach(function(tile) {
+    var x = tile.column * board.tileWidth;
+    var y = tile.row * board.tileHeight;
+    var width = board.tileWidth;
+    var height = board.tileHeight;
 
-      context.strokeRect(x, y, width, height);
-    });
+    context.strokeRect(x, y, width, height);
   });
 
   return context;
